@@ -13,8 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
                     You are logged in!
+                <div>
+                    <a href="companies" class="btn btn-lg btn-success">Go to Companies</a>
+                </div>
+                    
                 </div>
             </div>
         </div>

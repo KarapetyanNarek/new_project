@@ -18,13 +18,11 @@ class CreateEmployeesTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->unsignedBigInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');;
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->string('email')->unique();
             $table->string('phone');
-            $table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
-            $table->timestamp('updated_at')->default('CURRENT_TIMESTAMP');
+            $table->timestamps();
         });
-
 
     }
 
