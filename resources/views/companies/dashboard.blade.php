@@ -16,12 +16,14 @@
                 </tr>
                 @foreach($companies as $key => $company)
                     <tr>
-                    <td class="text-center"><img src="{{ URL::to('/') }}storage/images{{ $company->logo }}" class="img-thumbnail" width="100"></td>
+                    <td class="text-center"><img src="{{ URL::to('/') }}/images/{{ $company->logo }}" class="img-thumbnail" width="100" height="100"></td>
                     <td class="text-center">{{ $company->name }}</td>
                     <td class="text-center">{{ $company->email }}</td>
                     <td class="text-center">{{ $company->website }}</td>
-                    <td class="d-flex justify-content-center">
+                    <td class="text-center">
                         <form action="{{ route('companies.destroy', $company->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                             <a href="{{'companies.show', $company->id}}" class="btn btn-warning">Show</a>
                             <a href="{{'companies.edit', $company->id}}" class="btn btn-info">Edit</a>

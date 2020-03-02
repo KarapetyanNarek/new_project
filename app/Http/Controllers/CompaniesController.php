@@ -52,7 +52,7 @@ class CompaniesController extends Controller
 
         $logo = $request->file('logo');
         $new_logo_name = time() . '.' . $logo -> getClientOriginalExtension();
-        $logo -> move(public_path('storage/images'), $new_logo_name);
+        $logo -> move(public_path('images'), $new_logo_name);
 
         $company_data = array(
             'logo'    => $new_logo_name,
@@ -106,8 +106,10 @@ class CompaniesController extends Controller
      * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Companies $companies)
+    public function destroy($id)
     {
-        //
+        $company = Companies::findOrFail($id);
+        $company -> delete();
+        return redirect()->route('companies.index')->with('success');
     }
 }
