@@ -14,10 +14,12 @@
                         </div>
                     @endif
                     You are logged in!
-                <div>
-                    <a href="companies" class="btn btn-lg btn-success">Go to Companies</a>
+                <div class="mt-3 w-100">
+                    <a href="companies" class="btn btn-lg btn-success w-100"><span class="text-uppercase font-weight-bold text-dark">Go to Companies</span></a>
                 </div>
-                    
+                <div class="mt-3 w-100">
+                    <a href="employees" class="btn btn-lg btn-success w-100"><span class="text-uppercase font-weight-bold text-dark">Go to Employees</span></a>
+                </div>
                 </div>
             </div>
         </div>

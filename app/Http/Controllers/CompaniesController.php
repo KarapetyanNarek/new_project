@@ -16,11 +16,11 @@ class CompaniesController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
-    $companies = Companies::latest()->paginate(10);
-    return view('companies.dashboard', compact('companies'))->with('i', (request()->input('page', 1)-1) * 10);
+        $companies = Companies::latest()->paginate(10);
+        return view('companies.dashboard', compact('companies'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -48,22 +48,19 @@ class CompaniesController extends Controller
         //     'website' => 'requird'
         // ]);
 
-        
-
         $logo = $request->file('logo');
-        $new_logo_name = time() . '.' . $logo -> getClientOriginalExtension();
-        $logo -> move(public_path('images'), $new_logo_name);
+        $new_logo_name = time() . '.' . $logo->getClientOriginalExtension();
+        $logo->move(public_path('images'), $new_logo_name);
 
         $company_data = array(
-            'logo'    => $new_logo_name,
-            'name'    => $request -> name,
-            'email'   => $request -> email,
-            'website' => $request -> website
+            'logo' => $new_logo_name,
+            'name' => $request->name,
+            'email' => $request->email,
+            'website' => $request->website,
         );
 
         Companies::create($company_data);
-
-        return redirect() -> route('companies.index')->with('success');
+        return redirect()->route('companies.index')->with('success');
     }
 
     /**
@@ -74,7 +71,8 @@ class CompaniesController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Companies::findOrFail($id);
+        return view('companies.show', compact('data'));
     }
 
     /**
@@ -83,9 +81,10 @@ class CompaniesController extends Controller
      * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function edit(Companies $companies)
+    public function edit($id)
     {
-        //
+        $company = Companies::findOrFail($id);
+        return view('companies.edit', compact('company'));
     }
 
     /**
@@ -95,9 +94,34 @@ class CompaniesController extends Controller
      * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Companies $companies)
+    public function update(Request $request, $id)
     {
-        //
+        $logo_new_name = $request->hidden_logo;
+        $logo = $request->file('logo');
+
+        if ($logo != '') {
+            // $request->validate([
+            //     'name'  => 'requird',
+            //     'email' => 'requird',
+            //     'logo'  => 'image|max:2048'
+            // ]);
+            $logo_new_name = time() . '.' . $logo->getClientOriginalExtension();
+            $logo->move(public_path('images'), $logo_new_name);
+        } else {
+            // $request->validate([
+            //     'name'=>'requird'
+            // ]);
+        }
+
+        $update_data = array(
+            'logo' => $logo_new_name,
+            'name' => $request->name,
+            'email' => $request->email,
+            'website' => $request->website,
+        );
+
+        Companies::whereId($id)->update($update_data);
+        return redirect()->route('companies.index')->with('success');
     }
 
     /**
@@ -109,7 +133,7 @@ class CompaniesController extends Controller
     public function destroy($id)
     {
         $company = Companies::findOrFail($id);
-        $company -> delete();
+        $company->delete();
         return redirect()->route('companies.index')->with('success');
     }
 }

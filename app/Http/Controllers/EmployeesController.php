@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Companies;
 use App\Employees;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        //
+        $companies = Companies::all();
+        $employees = Employees::latest()->paginate(10);
+        return view('employees.dashboard', compact('employees', 'companies'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -24,7 +27,8 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        //
+        $companies = Companies::all();
+        return view('employees.create', compact('companies'));
     }
 
     /**
@@ -35,7 +39,17 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employees_data = array(
+            'company_id' => $request->company_id,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        );
+
+        Employees::create($employees_data);
+        return redirect()->route('employees.index')->with('success');
+
     }
 
     /**
@@ -44,9 +58,11 @@ class EmployeesController extends Controller
      * @param  \App\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function show(Employees $employees)
+    public function show($id)
     {
-        //
+        $data = Employees::findOrFail($id);
+        $companies = Companies::all();
+        return view('employees.show', compact('data', 'companies'));
     }
 
     /**
@@ -55,9 +71,11 @@ class EmployeesController extends Controller
      * @param  \App\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employees $employees)
+    public function edit($id)
     {
-        //
+        $employe = Employees::findOrFail($id);
+        $companies = Companies::all();
+        return view('employees.edit', compact('employe', 'companies'));
     }
 
     /**
@@ -78,8 +96,10 @@ class EmployeesController extends Controller
      * @param  \App\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employees $employees)
+    public function destroy($id)
     {
-        //
+        $employe = Employees::findOrFail($id);
+        $employe->delete();
+        return redirect()->route('employees.index')->with('success');
     }
 }

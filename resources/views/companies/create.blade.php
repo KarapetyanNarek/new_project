@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Create Companies') }}
-                    <a href="{{ route('companies.index') }}" class="btn btn-warning">Back</a>
+                <div class="card-header"><span class="text-dark text-uppercase font-weight-bold">{{ __('Create Company') }}</span>
+                    <a href="{{ route('companies.index') }}" class="btn btn-danger ml-3">Back</a>
                 </div>
 
                 <div class="card-body">
@@ -21,7 +21,7 @@
                     @endif
                     <form method="POST" action="{{ route('companies.store') }}" enctype="multipart/form-data">
                         @csrf
-
+                        
                         <div class="form-group col-md-5 row">
                             <label for="logo" class="col-md-5 col-form-label text-md-right">{{ __('Logo') }}</label>
 
@@ -34,7 +34,7 @@
                             <label for="name" class="col-md-3 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
                             </div>
                         </div>
 
@@ -42,7 +42,7 @@
                             <label for="email" class="col-md-3 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                             <div class="col-md-9">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" autofocus>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" autofocus>
                             </div>
                         </div>
 
@@ -50,7 +50,7 @@
                             <label for="website" class="col-md-3 col-form-label text-md-right">{{ __('Web-Site') }}</label>
 
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="website" value="{{ old('website') }}" autofocus>
+                                <input id="website" type="text" class="form-control" name="website" value="{{ old('website') }}" autofocus>
                             </div>
                         </div>
 
