@@ -18,7 +18,8 @@ class EmployeesController extends Controller
     {
         $companies = Companies::all();
         $employees = Employees::latest()->paginate(10);
-        return view('employees.dashboard', compact('employees', 'companies'))->with('i', (request()->input('page', 1) - 1) * 10);
+        return view('employees.dashboard', compact('employees', 'companies'))
+        ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -49,7 +50,8 @@ class EmployeesController extends Controller
         );
 
         Employees::create($employees_data);
-        return redirect()->route('employees.index')->with('success');
+        return redirect()->route('employees.index')
+        ->with('success');
 
     }
 

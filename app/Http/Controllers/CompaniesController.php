@@ -45,7 +45,8 @@ class CompaniesController extends Controller
     {
 
         $logo = $request->file('logo');
-        $new_logo_name = time() . '.' . $logo->getClientOriginalExtension();
+        $new_logo_name = time() . '.' . $logo
+            ->getClientOriginalExtension();
         $logo->move(public_path('images'), $new_logo_name);
 
         $company_data = array(
@@ -56,7 +57,8 @@ class CompaniesController extends Controller
         );
 
         Companies::create($company_data);
-        return redirect()->route('companies.index')->with('success');
+        return redirect()->route('companies.index')
+            ->with('success');
     }
 
     /**
@@ -103,7 +105,8 @@ class CompaniesController extends Controller
         );
 
         Companies::whereId($id)->update($update_data);
-        return redirect()->route('companies.index')->with('success');
+        return redirect()->route('companies.index')
+            ->with('success');
     }
 
     /**
@@ -116,7 +119,8 @@ class CompaniesController extends Controller
     {
         $company = Companies::findOrFail($id);
         $company->delete();
-        return redirect()->route('companies.index')->with('success');
+        return redirect()->route('companies.index')
+            ->with('success');
     }
 
     public function employeesView($id)
