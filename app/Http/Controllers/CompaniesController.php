@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Companies;
 use App\Employees;
-use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
+use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
 {
@@ -42,7 +42,7 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CompanyRequest $request)
-    {       
+    {
 
         $logo = $request->file('logo');
         $new_logo_name = time() . '.' . $logo->getClientOriginalExtension();
@@ -94,20 +94,6 @@ class CompaniesController extends Controller
     {
         $logo_new_name = $request->hidden_logo;
         $logo = $request->file('logo');
-
-        if ($logo != '') {
-            // $request->validate([
-            //     'name'  => 'requird',
-            //     'email' => 'requird',
-            //     'logo'  => 'image|max:2048'
-            // ]);
-            $logo_new_name = time() . '.' . $logo->getClientOriginalExtension();
-            $logo->move(public_path('images'), $logo_new_name);
-        } else {
-            // $request->validate([
-            //     'name'=>'requird'
-            // ]);
-        }
 
         $update_data = array(
             'logo' => $logo_new_name,
