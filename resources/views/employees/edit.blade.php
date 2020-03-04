@@ -14,7 +14,7 @@
             <div class="col-md-5 text-left">
                 <select name="company_id" id="company_id">
                     @foreach($companies as $key => $company)
-                        <option value="{{$company->id}}">
+                        <option <?php if($company->id ==$employe->company_id):?>selected<?php endif;?> value="{{$company->id}}">
                             {{$company->name}}
                         </option>
                     @endforeach

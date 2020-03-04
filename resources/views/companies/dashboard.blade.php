@@ -25,10 +25,10 @@
                         <form action="{{ route('companies.destroy', $company->id)}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this company?');" class="btn btn-danger">Delete</button>
                             <a href="{{route('companies.show', $company->id)}}" class="btn btn-warning">Show</a>
                             <a href="{{route('companies.edit', $company->id)}}" class="btn btn-info">Edit</a>
-                            <a href="#" class="btn btn-info">Company Employees</a>
+                            <a href="{{url('companies/'. $company->id . '/employees')}}" class="btn btn-info">Company Employees</a>
                         </form>
                     </td>
                     </tr>

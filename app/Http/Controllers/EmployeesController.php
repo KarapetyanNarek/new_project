@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Companies;
 use App\Employees;
+use App\Http\Requests\EmployeRequest;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -37,7 +38,7 @@ class EmployeesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeRequest $request)
     {
         $employees_data = array(
             'company_id' => $request->company_id,
@@ -85,9 +86,18 @@ class EmployeesController extends Controller
      * @param  \App\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employees $employees)
+    public function update(Request $request, $id)
     {
-        //
+        $update_data = array(
+            'company_id' => $request->company_id,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        );
+
+        Employees::whereId($id)->update($update_data);
+        return redirect()->route('employees.index')->with('success');
     }
 
     /**

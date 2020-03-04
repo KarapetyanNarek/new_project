@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Companies;
+use App\Employees;
 use Illuminate\Http\Request;
+use App\Http\Requests\CompanyRequest;
 
 class CompaniesController extends Controller
 {
@@ -39,14 +41,8 @@ class CompaniesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        // $request->validate([
-        //     'logo'    => 'requird|image|max:20',
-        //     'name'    => 'requird',
-        //     'email'   => 'requird',
-        //     'website' => 'requird'
-        // ]);
+    public function store(CompanyRequest $request)
+    {       
 
         $logo = $request->file('logo');
         $new_logo_name = time() . '.' . $logo->getClientOriginalExtension();
@@ -135,5 +131,12 @@ class CompaniesController extends Controller
         $company = Companies::findOrFail($id);
         $company->delete();
         return redirect()->route('companies.index')->with('success');
+    }
+
+    public function employeesView($id)
+    {
+        $company = Companies::findOrFail($id);
+        $employees = Employees::all();
+        return view('company.companyEmployees', compact('company', 'employees'));
     }
 }

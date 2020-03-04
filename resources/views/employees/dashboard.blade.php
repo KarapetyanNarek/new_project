@@ -34,7 +34,7 @@
                         <form action="{{ route('employees.destroy', $employe->id)}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" onclick="return confirm('Are you sure you want delete this employe?')" class="btn btn-danger">Delete</button>
                             <a href="{{route('employees.show', $employe->id)}}" class="btn btn-warning">Show</a>
                             <a href="{{route('employees.edit', $employe->id)}}" class="btn btn-info">Edit</a>
                         </form>
