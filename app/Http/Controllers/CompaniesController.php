@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Companies;
-use App\Employees;
+use App\Models\Company;
+use App\Models\Employee;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
 
@@ -21,8 +21,8 @@ class CompaniesController extends Controller
 
     public function index()
     {
-        $companies = Companies::latest()->paginate(10);
-        return view('companies.dashboard', compact('companies'))->with('i', (request()->input('page', 1) - 1) * 10);
+        $companies = Company::latest()->paginate(10);
+        return view('companies.index', compact('companies'));
     }
 
     /**
@@ -45,18 +45,18 @@ class CompaniesController extends Controller
     {
 
         $logo = $request->file('logo');
-        $new_logo_name = time() . '.' . $logo
+        $newLogoName = time() . '.' . $logo
             ->getClientOriginalExtension();
-        $logo->move(public_path('images'), $new_logo_name);
+        $logo->move(storage_path('app/public/images'), $newLogoName);
 
-        $company_data = array(
-            'logo' => $new_logo_name,
+        $companyData = [
+            'logo' => $newLogoName,
             'name' => $request->name,
             'email' => $request->email,
             'website' => $request->website,
-        );
+        ];
 
-        Companies::create($company_data);
+        Company::create($companyData);
         return redirect()->route('companies.index')
             ->with('success');
     }
@@ -64,24 +64,24 @@ class CompaniesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Companies  $companies
+     * @param  \App\Models\Company  $companies
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $data = Companies::findOrFail($id);
+        $data = Company::findOrFail($id);
         return view('companies.show', compact('data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Companies  $companies
+     * @param  \App\Models\Company  $companies
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $company = Companies::findOrFail($id);
+        $company = Company::findOrFail($id);
         return view('companies.edit', compact('company'));
     }
 
@@ -89,22 +89,22 @@ class CompaniesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Companies  $companies
+     * @param  \App\Models\Company $companies
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $request, $id)
     {
-        $logo_new_name = $request->hidden_logo;
+        $logoNewName = $request->hiddenLogo;
         $logo = $request->file('logo');
 
-        $update_data = array(
-            'logo' => $logo_new_name,
+        $updateData = [
+            'logo' => $logoNewName,
             'name' => $request->name,
             'email' => $request->email,
             'website' => $request->website,
-        );
+        ];
 
-        Companies::whereId($id)->update($update_data);
+        Company::whereId($id)->update($updateData);
         return redirect()->route('companies.index')
             ->with('success');
     }
@@ -112,12 +112,12 @@ class CompaniesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Companies  $companies
+     * @param  \App\Models\Company  $companies
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $company = Companies::findOrFail($id);
+        $company = Company::findOrFail($id);
         $company->delete();
         return redirect()->route('companies.index')
             ->with('success');
@@ -125,8 +125,7 @@ class CompaniesController extends Controller
 
     public function employeesView($id)
     {
-        $company = Companies::findOrFail($id);
-        $employees = Employees::all();
-        return view('company.companyEmployees', compact('company', 'employees'));
+        $company = Company::findOrFail($id);
+        return view('companies.companyEmployees', compact('company'));
     }
 }

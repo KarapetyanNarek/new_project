@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Companies;
-use App\Employees;
-use App\Http\Requests\EmployeRequest;
+use App\Models\Company;
+use App\Models\Employee;
+use App\Http\Requests\EmployeeRequest;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -16,10 +16,9 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $companies = Companies::all();
-        $employees = Employees::latest()->paginate(10);
-        return view('employees.dashboard', compact('employees', 'companies'))
-        ->with('i', (request()->input('page', 1) - 1) * 10);
+        $companies = Company::all();
+        $employees = Employee::latest()->paginate(10);
+        return view('employees.index', compact('employees', 'companies'));
     }
 
     /**
@@ -29,7 +28,7 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        $companies = Companies::all();
+        $companies = Company::all();
         return view('employees.create', compact('companies'));
     }
 
@@ -39,17 +38,17 @@ class EmployeesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeRequest $request)
+    public function store(EmployeeRequest $request)
     {
-        $employees_data = array(
+        $employeesData = [
             'company_id' => $request->company_id,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
             'phone' => $request->phone,
-        );
+        ];
 
-        Employees::create($employees_data);
+        Employee::create($employeesData);
         return redirect()->route('employees.index')
         ->with('success');
 
@@ -58,60 +57,60 @@ class EmployeesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Employees  $employees
+     * @param  \App\Models\Employee  $employees
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $data = Employees::findOrFail($id);
-        $companies = Companies::all();
+        $data = Employee::findOrFail($id);
+        $companies = Company::all();
         return view('employees.show', compact('data', 'companies'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Employees  $employees
+     * @param  \App\Models\Employee  $employees
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $employe = Employees::findOrFail($id);
-        $companies = Companies::all();
-        return view('employees.edit', compact('employe', 'companies'));
+        $employee = Employee::findOrFail($id);
+        $companies = Company::all();
+        return view('employees.edit', compact('employee', 'companies'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employees  $employees
+     * @param  \App\Models\Employee  $employees
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeRequest $request, $id)
     {
-        $update_data = array(
+        $updateData = [
             'company_id' => $request->company_id,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
             'phone' => $request->phone,
-        );
+        ];
 
-        Employees::whereId($id)->update($update_data);
+        Employee::whereId($id)->update($updateData);
         return redirect()->route('employees.index')->with('success');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Employees  $employees
+     * @param  \App\Models\Employee  $employees
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $employe = Employees::findOrFail($id);
-        $employe->delete();
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
         return redirect()->route('employees.index')->with('success');
     }
 }

@@ -5,7 +5,7 @@
     <div class="text-right">
         <a href="{{route('employees.index')}}" class="btn btn-danger">Back</a>
     </div>
-    <form method="post" action="{{ route('employees.update', $employe->id) }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('employees.update', $employee->id) }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         
@@ -14,7 +14,7 @@
             <div class="col-md-5 text-left">
                 <select name="company_id" id="company_id">
                     @foreach($companies as $key => $company)
-                        <option <?php if($company->id ==$employe->company_id):?>selected<?php endif;?> value="{{$company->id}}">
+                        <option <?php if($company->id ==$employee->company_id):?>selected<?php endif;?> value="{{$company->id}}">
                             {{$company->name}}
                         </option>
                     @endforeach
@@ -24,25 +24,25 @@
         <div class="form-group mt-3">
             <label for="firstname" class="col-md-3 text-left text-success font-weight-bold">{{ __('Enter firstname') }}</label>
             <div class="col-md-5 text-right">
-                    <input id="firstname" type="text" class="form-control" name="firstname" value="{{ $employe->firstname }}" autofocus>
+                    <input id="firstname" type="text" class="form-control" name="firstname" value="{{ $employee->firstname }}" autofocus>
             </div>
         </div>
         <div class="form-group mt-3">
             <label for="lastname" class="col-md-3 text-left text-success font-weight-bold">{{ __('Enter lastname') }}</label>
             <div class="col-md-5 text-right">
-                    <input id="lastname" type="text" class="form-control" name="lastname" value="{{ $employe->lastname }}" autofocus>
+                    <input id="lastname" type="text" class="form-control" name="lastname" value="{{ $employee->lastname }}" autofocus>
             </div>
         </div>
         <div class="form-group mt-3">
             <label for="email" class="col-md-3 text-left text-success font-weight-bold">{{ __('Enter email') }}</label>
             <div class="col-md-5 text-right">
-                    <input id="email" type="text" class="form-control" name="email" value="{{ $employe->email }}" autofocus>
+                    <input id="email" type="text" class="form-control" name="email" value="{{ $employee->email }}" autofocus>
             </div>
         </div>
         <div class="form-group mt-3">
             <label for="phone" class="col-md-3 text-left text-success font-weight-bold">{{ __('Enter phone number') }}</label>
             <div class="col-md-5 text-right">
-                    <input id="phone" type="text" class="form-control" name="phone" value="{{ $employe->phone }}" autofocus>
+                    <input id="phone" type="text" class="form-control" name="phone" value="{{ $employee->phone }}" autofocus>
             </div>
         </div>
         <div class="form-group mt-3">

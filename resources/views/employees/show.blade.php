@@ -17,19 +17,19 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-left font-weight-bold text-success">Employe firstname:</td>
+                <td class="text-left font-weight-bold text-success">Employee firstname:</td>
                 <td class="text-left font-weight-bold">{{$data->firstname}}</td>
             </tr>
             <tr>
-                <td class="text-left font-weight-bold text-success">Employe lastname:</td>
+                <td class="text-left font-weight-bold text-success">Employee lastname:</td>
                 <td class="text-left font-weight-bold">{{$data->lastname}}</td>
             </tr>
             <tr>
-                <td class="text-left font-weight-bold text-success">Employe Email:</td>
+                <td class="text-left font-weight-bold text-success">Employee Email:</td>
                 <td class="text-left font-weight-bold">{{$data->email}}</td>
             </tr>
             <tr>
-                <td class="text-left font-weight-bold text-success">Employe Phone number:</td>
+                <td class="text-left font-weight-bold text-success">Employee Phone number:</td>
                 <td class="text-left font-weight-bold">{{$data->phone}}</td>
             </tr>           
     </div>

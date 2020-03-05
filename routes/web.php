@@ -15,13 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/companies/{id}/employees', 'CompaniesController@employeesView');
 
 Route::resource('companies', 'CompaniesController');

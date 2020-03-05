@@ -13,8 +13,8 @@
                 <label for="logo" class="col-md-3 text-left text-success font-weight-bold">{{ __('Select Company Logo') }}</label>
                 <div class="col-md-5 text-right">
                         <input type="file" name="logo" />
-                        <img src="{{URL::to('/')}}/images/{{$company->logo}}" class="img-thumbnail" width="100"/>
-                        <input type="hidden" name="hidden_logo" value="{{ $company->logo }}">
+                        <img src="{{URL::to('/')}}/storage/images/{{$company->logo}}" class="img-thumbnail" width="100"/>
+                        <input type="hidden" name="hiddenLogo" value="{{ $company->logo }}">
                 </div>
             </div>
             <div class="form-group mt-3">

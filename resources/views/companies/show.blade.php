@@ -7,7 +7,7 @@
         </div>
         <div class="d-flex">
             <div>
-                <img src="{{URL::to('/')}}/images/{{$data->logo}}" alt="Company logo" class="img-thumbnail" width="100"/>
+                <img src="{{URL::to('/')}}/storage/images/{{$data->logo}}" alt="Company logo" class="img-thumbnail" width="100"/>
             </div>
             <div class="ml-5">
                 <h3><span class="text-success font-weight-bold">Company name:</span> {{strtoupper($data->name)}}</h3>
