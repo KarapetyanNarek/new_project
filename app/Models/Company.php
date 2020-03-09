@@ -8,7 +8,7 @@ class Company extends Model
 {
     protected $fillable = ['logo', 'name', 'email', 'website'];
 
-    public function employee()
+    public function employees()
     {
         return $this->hasMany('App\Models\Employee');
     }

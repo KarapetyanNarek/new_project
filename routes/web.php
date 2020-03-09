@@ -19,7 +19,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/companies/{id}/employees', 'CompaniesController@employeesView');
+Route::get('/companies/{id}/employees', 'CompaniesController@getCompanyEmployees');
 
 Route::resource('companies', 'CompaniesController');
 Route::resource('employees', 'EmployeesController');

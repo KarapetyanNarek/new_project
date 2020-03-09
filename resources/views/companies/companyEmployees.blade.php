@@ -16,15 +16,13 @@
                 <th class="text-center">Employee email</th>
                 <th class="text-center">Employee phone number</th>
             </tr>
-            @foreach($company->employee as $key => $employee)
-                @if($company->id == $employee->company_id)
+            @foreach($company->employees as $key => $employee)
                 <tr>
                     <td class="text-center">{{$employee->firstname}}</td>
                     <td class="text-center">{{$employee->lastname}}</td>
                     <td class="text-center">{{$employee->email}}</td>
                     <td class="text-center">{{$employee->phone}}</td>
                 </tr>
-                @endif
             @endforeach
         </table>
     </div>

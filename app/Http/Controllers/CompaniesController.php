@@ -123,7 +123,15 @@ class CompaniesController extends Controller
             ->with('success');
     }
 
-    public function employeesView($id)
+
+    /**
+     * Display the company employees resource.
+     *
+     * @param  \App\Models\Company  $companies
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getCompanyEmployees($id)
     {
         $company = Company::findOrFail($id);
         return view('companies.companyEmployees', compact('company'));
